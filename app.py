@@ -1,10 +1,37 @@
-from flask import Flask
+import mysql.connector as my
+from flask import Flask , render_template, request, redirect, url_for
 app=Flask(__name__)
 
-@app.route("/")#The important thing is the @app.route("/") above it  tells Flask "when someone visits the homepage, run whatever function is below me.
-def home():
-    return ('Hello World')
+#--database--
+con=my.connect(host='localhost', user='root', password='Aditi@Mona123', database='expense_manager')
+#dont add cursor here. each function gets its own
 
-if __name__=="__main__":
+@app.route("/")#your comment
+def home():
+    return 'Hello World'
+
+@app.route('/addexpense', methods=['GET', 'POST'])
+def addexpense():
+    if request.method=="POST":
+        name=request.form["expense_name"]
+        amount=request.form["expense_amount"]
+        date=request.form["expense_date"]
+        category=request.form["expense_category"]
+        notes=request.form["expense_notes"]
+        
+    
+        #mysql 
+        mycursor=con.cursor()
+        mycursor.execute("Insert into expenses (name, amount, date1, category, notes) values (%s, %s, %s, %s, %s)",(name, amount, date, category, notes))
+        con.commit()
+
+
+        return redirect(url_for('home'))
+    else:
+        return render_template('add.html')
+
+
+
+if __name__ == "__main__":
     app.run(debug=True)
 
