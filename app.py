@@ -29,8 +29,16 @@ def addexpense():
         return redirect(url_for('home'))
     else:
         return render_template('add.html')
+    
 
-
+@app.route('/viewexpense')# why didnt we write methods? cuz we need only get to view and get is by default
+def viewexpense():
+    mycursor=con.cursor()
+    mycursor.execute('Select * from expenses;')
+    expenses=mycursor.fetchall()
+    return render_template ('view.html',expenses=expenses)
+        
+        
 
 if __name__ == "__main__":
     app.run(debug=True)

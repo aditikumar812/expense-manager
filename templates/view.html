@@ -1,0 +1,33 @@
+<html>
+    <head> 
+        <title> View Expenses </title> 
+
+    </head>
+
+    <body> 
+        <table> 
+            <tr>
+        
+                <th> Name </th>
+                <th> Amount </th>
+                <th> Date </th>
+                <th> Category </th>
+                <th> Notes </th>
+
+            </tr>
+        {% for expenses in expenses%}
+            <tr> 
+                <td> {{expenses[1]}} </td> 
+                <td> {{expenses[2]}} </td>
+                <td> {{expenses[3]}} </td>
+                <td> {{expenses[4]}} </td>
+                <td> {{expenses[5]}} </td>
+            
+            </tr>
+        {% endfor %}
+
+            
+
+        </table>
+    </body>
+</html>
