@@ -5,6 +5,12 @@
     </head>
 
     <body> 
+
+        <form action="/searchexpense" method="GET">
+                        <input type="text" name="category">
+                        <button type="submit"> Search </button>     
+        </form>
+        
         <table> 
             <tr>
         
@@ -32,6 +38,7 @@
                         <input type="hidden" name="id" value="{{expenses[0]}}">
                         <button type="submit"> Edit</button>     
                     </form>
+
                 </td>
             
             </tr>

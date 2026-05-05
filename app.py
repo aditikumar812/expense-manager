@@ -71,8 +71,16 @@ def updateexpense():
     con.commit()
     return redirect(url_for('viewexpense'))
 
+@app.route('/searchexpense')
+def searchexpense():
+    mycursor=con.cursor()
+    searchword='%' + request.args.get('category') + '%'
+    mycursor.execute('select * from expenses where name like %s or date1 like %s or category like %s or notes like %s', (searchword, searchword, searchword, searchword))
+    expenses=mycursor.fetchall()
+    return render_template ('view.html', expenses=expenses)
 
-        
+
+
         
 
 if __name__ == "__main__":
