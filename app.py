@@ -39,7 +39,7 @@ def viewexpense():
     return render_template ('view.html',expenses=expenses)
 
 
-@app.route('/deleteexpense', methods=['GET', 'POST'])
+@app.route('/deleteexpense', methods=['POST'])
 def deleteexpense():
     mycursor=con.cursor() # no need to write if req method=post cuz alwas post hi hoga kya get?
     id=request.form['id']
@@ -47,6 +47,29 @@ def deleteexpense():
     con.commit()
     return redirect(url_for('viewexpense'))
     
+
+@app.route('/editexpense',  methods=['POST'])
+def editexpense():
+    mycursor=con.cursor()
+    id=request.form['id']
+    mycursor.execute('Select * from expenses where id=%s',(id,))
+    expense=mycursor.fetchone()
+    return render_template ('edit.html', expense=expense)
+
+
+@app.route('/updateexpense', methods=['POST'])
+def updateexpense():
+    mycursor=con.cursor()
+    id=request.form['id']
+    name=request.form["expense_name"]
+    amount=request.form["expense_amount"]
+    date=request.form["expense_date"]
+    category=request.form["expense_category"]
+    notes=request.form["expense_notes"]
+
+    mycursor.execute('Update expenses set name=%s , amount=%s, date1=%s, category=%s, notes=%s where id=%s',(name, amount, date, category,notes,id))
+    con.commit()
+    return redirect(url_for('viewexpense'))
 
 
         

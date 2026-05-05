@@ -1,0 +1,30 @@
+<html>
+    <head>
+            <title> Edit Expense</title>
+    </head>
+    <body>
+        <form action="/updateexpense" method="POST">
+
+        <input type="hidden" name="id" value="{{expense[0]}}">
+        
+        <label for="expense_name"> Enter expense name</label>
+        <input type="text" value="{{expense[1]}}" name="expense_name" id="expense_name"> <br> 
+        
+        <label for="expense_amount"> Enter expense amount</label>
+        <input type="number" value="{{expense[2]}}" name="expense_amount" id="expense_amount"> <br>
+
+        <label for="expense_date"> Enter expense date</label>
+        <input type="date" value="{{expense[3]}}" name="expense_date" id="expense_date"> <br>
+
+        <label for="expense_category"> Enter expense category</label>
+        <input type="text" value="{{expense[4]}}" name="expense_category" id="expense_category"> <br>
+
+        <label for="expense_notes"> Enter expense notes</label>
+        <input type="text" value="{{expense[5]}}" name="expense_notes" id="expense_notes"> <br>
+
+        <input type="submit" value="Submit">
+        
+        </form>
+    </body>
+
+</html>
