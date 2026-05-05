@@ -36,7 +36,9 @@ def viewexpense():
     mycursor=con.cursor()
     mycursor.execute('Select * from expenses;')
     expenses=mycursor.fetchall()
-    return render_template ('view.html',expenses=expenses)
+    mycursor.execute("select sum(amount) from expenses where month(date1)=month(now()) and year(date1)=year(now())")
+    total1=mycursor.fetchone()[0] # fetchone returns tuple like (6700,) we need only 6700. hence the '0'
+    return render_template ('view.html',expenses=expenses, total1=total1)
 
 
 @app.route('/deleteexpense', methods=['POST'])
@@ -68,6 +70,7 @@ def updateexpense():
     notes=request.form["expense_notes"]
 
     mycursor.execute('Update expenses set name=%s , amount=%s, date1=%s, category=%s, notes=%s where id=%s',(name, amount, date, category,notes,id))
+
     con.commit()
     return redirect(url_for('viewexpense'))
 
