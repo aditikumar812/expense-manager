@@ -49,5 +49,61 @@
         </table>
 
         <p> My total this month:{{total1}} </p>
+
+        <canvas id="myChart" style="width:100%;max-width:700px"></canvas>
+        <canvas id="barChart" style="width:100%;max-width:700px"></canvas>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>        
+        <script>
+
+         
+            var labels= [{% for row in graph_results%} "{{row[0]}}", {% endfor %}];
+            var data = [{% for row in graph_results%} {{row[1]}}, {% endfor %}];
+
+            
+       
+        new Chart("myChart", {
+            type: "pie",
+            data: {
+                labels: labels,
+                datasets: 
+                [{
+                    data: data, backgroundColor: ["#9B8816", "#F98948", "#5D3A00", "#684E32", "#F9EA9A", "#e77431", "#503431", "#55a393", "#4b6c57"]
+                }]
+            },
+            options: {
+                title: {
+                display: true,
+                text: "Expense Distribution"
+                }
+            }
+            });
+       
+
+            
+
+        
+        var blabels= [{%for row in bar_results%} "{{row[0]}}" , {% endfor %}];     
+        var bdata = [{%for row in bar_results%} {{row[1]}} , {% endfor %}];    
+
+        new Chart("barChart", {
+            type: "bar",
+            data: {
+                labels: blabels,
+                datasets: 
+                [{
+                    data: bdata, backgroundColor: ["#9B8816", "#F98948", "#5D3A00", "#684E32", "#F9EA9A", "#e77431", "#503431", "#55a393", "#4b6c57"]
+                }]
+            },
+            options: {
+                title: {
+                display: true,
+                text: "Expense Distribution by Month"
+                }
+            }
+            });
+
+
+        </script>
     </body>
 </html>

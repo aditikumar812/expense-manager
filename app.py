@@ -38,7 +38,10 @@ def viewexpense():
     expenses=mycursor.fetchall()
     mycursor.execute("select sum(amount) from expenses where month(date1)=month(now()) and year(date1)=year(now())")
     total1=mycursor.fetchone()[0] # fetchone returns tuple like (6700,) we need only 6700. hence the '0'
-    return render_template ('view.html',expenses=expenses, total1=total1)
+    # for the chart
+    mycursor.execute('Select category, sum(amount) from expenses group by category')
+    graph_results= mycursor.fetchall()
+    return render_template ('view.html',expenses=expenses, total1=total1, graph_results=graph_results)
 
 
 @app.route('/deleteexpense', methods=['POST'])
